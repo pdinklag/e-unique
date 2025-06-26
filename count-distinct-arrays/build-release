@@ -1,0 +1,2 @@
+#!/bin/sh
+g++ --std=gnu++20 -o count-distinct-arrays -O3 -DNDEBUG count_distinct_arrays.cpp

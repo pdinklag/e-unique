@@ -1,3 +1,4 @@
+#include <cassert>
 #include <cstdint>
 #include <cstddef>
 #include <functional>
@@ -19,6 +20,14 @@ int main(int argc, char** argv) {
             std::cerr << "n must be at most 16" << std::endl;
             return -2;
         }
+        if(sigma < 2) {
+            std::cerr << "sigma must be at least 2" << std::endl;
+            return -2;            
+        }
+        if(sigma > n) {
+            std::cerr << "sigma must be at most n" << std::endl;
+            return -2;
+        }
 
         size_t count = 0, count_distinct = 0;
         // NormalizedArrayIterator it(n, sigma);
@@ -26,6 +35,7 @@ int main(int argc, char** argv) {
         std::unordered_map<Signature, size_t> distinct_arrays;
 
         auto exists_unique = [&](size_t const i, size_t const j){
+            assert(i < j);
             if(i == j)[[unlikely]] return true;
             size_t freq[sigma];
             for(size_t c = 0; c < sigma; c++) freq[c] = 0;

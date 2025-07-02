@@ -16,6 +16,16 @@ using Signature = __uint128_t;
 
 using Array = std::vector<UInt>;
 
+constexpr Number stirling2(Number const n, Number const k) {
+    if(k == n) {
+        return 1;
+    } else if(k == 0 || n < k) {
+        return 0;
+    } else {
+        return stirling2(n-1, k-1) + k * stirling2(n-1, k);
+    }
+}
+
 bool exists_unique(Array const& array, size_t const sigma, size_t const i, size_t const j) {
     assert(i < j);
     if(i == j)[[unlikely]] return true;
@@ -71,6 +81,8 @@ int main(int argc, char** argv) {
             std::cerr << "sigma must be at most n" << std::endl;
             return -2;
         }
+
+        std::cout << "computing " << stirling2(n, sigma) << " normalized arrays and their equivalence classes ..." << std::endl;
 
         size_t count = 0, count_distinct = 0;
         Array array(n);
